@@ -1,0 +1,18 @@
+Metadata-Version: 2.4
+Name: koalacode
+Version: 0.1.0
+Summary: A toy programming language in Python
+Author-email: Krishna Gupta <krishnagupta5672@gmail.com>
+License: MIT
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+# KoalaCode
+
+Small toy programming language.
+
+Install locally:
+```bash
+pip install -e .

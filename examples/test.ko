@@ -1,0 +1,17 @@
+# examples/test.ko
+# quick sample
+nums = [1, 2, 3, 4];
+give(nums[2]);
+
+x = 5;
+this (x > 3) {
+    give("greater");
+} otherwise {
+    give("smaller");
+}
+
+i = 0;
+iter(i < 3) {
+    give(i);
+    i = i + 1;
+}
