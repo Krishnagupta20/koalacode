@@ -5,7 +5,6 @@ koalacode/__init__.py
 koalacode/cli.py
 koalacode/interpreter.py
 koalacode/lexer.py
-koalacode/mylang.py
 koalacode/parser.py
 koalacode.egg-info/PKG-INFO
 koalacode.egg-info/SOURCES.txt

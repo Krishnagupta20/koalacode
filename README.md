@@ -13,3 +13,5 @@ source .venv/bin/activate
 
 pip install --upgrade pip
 pip install -e .
+## Run a program
+koalacode examples/test.ko
