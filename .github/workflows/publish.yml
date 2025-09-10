@@ -8,6 +8,10 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
 
+    permissions:       # 👈 REQUIRED for OIDC trusted publishing
+      id-token: write  # allow requesting an OIDC token
+      contents: read   # allow checkout of repo code
+
     steps:
     - uses: actions/checkout@v4
 
