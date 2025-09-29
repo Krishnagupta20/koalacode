@@ -31,6 +31,7 @@ class Token:
         return f"Token({self.type},{self.value}, line={self.line}, col={self.col})"
 
 def tokenize(code):
+    code = code.replace("\r\n", "\n").replace("\r", "\n")  # normalize newlines
     tok_regex = '|'.join(f'(?P<{name}>{pattern})' for name, pattern in TOKEN_SPEC)
     line_num = 1
     line_start = 0
