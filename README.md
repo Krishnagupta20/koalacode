@@ -1,6 +1,6 @@
 # KoalaCode
 
-KoalaCode — a toy programming language (interpreter in Python).
+KoalaCode — a toy programming language.
 
 ## Install locally
 
