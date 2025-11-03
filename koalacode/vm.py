@@ -76,7 +76,6 @@ class VM:
                     self.ip = arg
 
             elif instr == "MAKE_FUNC":
-                # functions are already compiled in compiler.funcs
                 pass
 
             elif instr == "CALL_FUNC":
@@ -95,10 +94,8 @@ class VM:
                 if len(params) != len(args):
                     raise RuntimeError(f"Function {name} expects {len(params)} args, got {len(args)}")
 
-                # Save current state
                 self.call_stack.append((self.ip, self.vars.copy(), self.code))
 
-                # Setup new frame
                 self.vars = dict(zip(params, args))
                 self.code = body
                 self.ip = 0

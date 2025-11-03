@@ -45,7 +45,6 @@ export function registerKoalaLanguage() {
     },
   });
 
-  // Define editor theme
   monaco.editor.defineTheme("koalaTheme", {
     base: "vs-dark",
     inherit: true,

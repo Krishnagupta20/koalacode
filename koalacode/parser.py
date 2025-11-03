@@ -22,7 +22,6 @@ class Parser:
             stmts.append(self.statement())
         return ('block', stmts, self.cur.line, self.cur.col)
 
-    # ----------- grammar rules ------------
 
     def assignment(self):
         if self.cur.type == 'ID':
@@ -35,7 +34,6 @@ class Parser:
         raise RuntimeError(f"Invalid assignment at line {self.cur.line}, col {self.cur.col}")
 
     def statement(self):
-        # Function definition
         if self.cur.type == 'FUNC':
             line, col = self.cur.line, self.cur.col
             self._advance()
@@ -50,7 +48,6 @@ class Parser:
             body = self.statement()
             return ('func_def', name, params, body, line, col)
 
-        # Return
         if self.cur.type == 'RETURN':
             line, col = self.cur.line, self.cur.col
             self._advance()
@@ -58,7 +55,6 @@ class Parser:
             self._eat('SEMI')
             return ('return', val, line, col)
 
-        # Give
         if self.cur.type == 'GIVE':
             line, col = self.cur.line, self.cur.col
             self._advance(); self._eat('LPAREN')
@@ -66,13 +62,11 @@ class Parser:
             self._eat('RPAREN'); self._eat('SEMI')
             return ('give', expr, line, col)
 
-        # Take
         if self.cur.type == 'TAKE':
             line, col = self.cur.line, self.cur.col
             self._advance(); self._eat('LPAREN'); self._eat('RPAREN'); self._eat('SEMI')
             return ('take', line, col)
 
-        # If/else
         if self.cur.type == 'THIS':
             line, col = self.cur.line, self.cur.col
             self._advance(); self._eat('LPAREN')
@@ -84,7 +78,6 @@ class Parser:
                 self._advance(); else_branch = self.statement()
             return ('if', cond, then_branch, else_branch, line, col)
 
-        # While
         if self.cur.type == 'ITER':
             line, col = self.cur.line, self.cur.col
             self._advance(); self._eat('LPAREN')
@@ -93,7 +86,6 @@ class Parser:
             body = self.statement()
             return ('while', cond, body, line, col)
 
-        # For
         if self.cur.type == 'ITER2':
             line, col = self.cur.line, self.cur.col
             self._advance(); self._eat('LPAREN')
@@ -103,7 +95,6 @@ class Parser:
             body = self.statement()
             return ('for', init, cond, step, body, line, col)
 
-        # Block
         if self.cur.type == 'LBRACE':
             line, col = self.cur.line, self.cur.col
             self._advance()
@@ -113,7 +104,6 @@ class Parser:
             self._eat('RBRACE')
             return ('block', stmts, line, col)
 
-        # Identifiers: assignment, array, func call, expr
         if self.cur.type == 'ID':
             name, line, col = self.cur.value, self.cur.line, self.cur.col
             self._advance()
@@ -136,13 +126,11 @@ class Parser:
                 self._eat('SEMI')
                 return ('expr', ('var', name, line, col), line, col)
 
-        # Expression statement
         line, col = self.cur.line, self.cur.col
         expr = self.comparison()
         self._eat('SEMI')
         return ('expr', expr, line, col)
 
-    # ---------- expressions ----------
 
     def comparison(self):
         node = self.expr()
@@ -181,10 +169,10 @@ class Parser:
         if tok.type == 'ID':
             name, line, col = tok.value, tok.line, tok.col
             self._advance()
-            if self.cur.type == 'LBRACK':  # array indexing
+            if self.cur.type == 'LBRACK':
                 self._advance(); idx = self.comparison(); self._eat('RBRACK')
                 return ('index', name, idx, line, col)
-            if self.cur.type == 'LPAREN':  # func call inside expr
+            if self.cur.type == 'LPAREN':
                 self._advance(); args = []
                 if self.cur.type != 'RPAREN':
                     args.append(self.comparison())
@@ -193,7 +181,7 @@ class Parser:
                 self._eat('RPAREN')
                 return ('func_call', name, args, line, col)
             return ('var', name, line, col)
-        if tok.type == 'LBRACK':  # array literal
+        if tok.type == 'LBRACK':
             line, col = tok.line, tok.col
             self._advance(); elems = []
             if self.cur.type != 'RBRACK':

@@ -14,7 +14,7 @@ class Interpreter:
     def error(self, message, node=None):
         """Attach line/col info if available."""
         if node and len(node) >= 3:
-            line, col = node[-2], node[-1]  # last two items in node
+            line, col = node[-2], node[-1]
             raise RuntimeError_(f"[Line {line}, Col {col}] {message}")
         raise RuntimeError_(message)
 
